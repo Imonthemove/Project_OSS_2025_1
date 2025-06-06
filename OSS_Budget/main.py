@@ -1,6 +1,5 @@
 from budget import Budget
 
-
 def main():
     budget = Budget()
 
@@ -15,12 +14,16 @@ def main():
         if choice == "1":
             category = input("카테고리 (예: 식비, 교통 등): ")
             description = input("설명: ")
+            currency = input("통화 선택 (KRW 또는 USD): ").strip().lower()
+            if currency not in ["krw", "usd"]:
+                print("지원하지 않는 통화입니다.\n")
+                continue
             try:
-                amount = int(input("금액(원): "))
+                amount = float(input("금액: "))
             except ValueError:
                 print("잘못된 금액입니다.\n")
                 continue
-            budget.add_expense(category, description, amount)
+            budget.add_expense(category, description, amount, currency)
 
         elif choice == "2":
             budget.list_expenses()
@@ -35,6 +38,6 @@ def main():
         else:
             print("잘못된 선택입니다.\n")
 
-
 if __name__ == "__main__":
     main()
+
