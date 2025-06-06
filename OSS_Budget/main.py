@@ -13,14 +13,20 @@ def main():
         choice = input("선택 > ")
 
         if choice == "1":
-            category = input("카테고리 (예: 식비, 교통 등): ")
-            description = input("설명: ")
-            try:
-                amount = int(input("금액(원): "))
-            except ValueError:
-                print("잘못된 금액입니다.\n")
-                continue
-            budget.add_expense(category, description, amount)
+            while True:
+                category = input("카테고리 (예: 식비, 교통 등, 입력 안 하면 종료): ")
+                if category.strip() == "":
+                    print("지출 추가를 종료합니다.\n")
+                    break
+
+                description = input("설명: ")
+                try:
+                    amount = int(input("금액(원): "))
+                except ValueError:
+                    print("잘못된 금액입니다.\n")
+                    continue
+
+                budget.add_expense(category, description, amount)
 
         elif choice == "2":
             budget.list_expenses()
